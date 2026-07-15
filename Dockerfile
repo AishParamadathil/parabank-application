@@ -14,17 +14,13 @@ FROM tomcat:10.1-jdk17-temurin-jammy
 # Clean out default webapps
 RUN rm -rf /usr/local/tomcat/webapps/*
 
-# Copy the compiled war file keeping its name 'parabank.war'
-COPY --from=builder /app/target/*.war /usr/local/tomcat/webapps/parabank.war
-
-# Create a default ROOT index that redirects root traffic (/) to /parabank/
-RUN mkdir /usr/local/tomcat/webapps/ROOT && \
-    echo '<% response.sendRedirect("/parabank/"); %>' > /usr/local/tomcat/webapps/ROOT/index.jsp
+# Copy the compiled war file directly as ROOT.war so it serves on the base URL "/"
+COPY --from=builder /app/target/*.war /usr/local/tomcat/webapps/ROOT.war
 
 # Direct Tomcat's database and temp systems to use /tmp (fully writeable on Render)
 ENV JAVA_OPTS="-Djava.io.tmpdir=/tmp -Duser.home=/tmp"
 
-# ONLY expose Tomcat's web port so Render's port detection behaves
+# Explicitly expose only the web port
 EXPOSE 8080
 
 CMD ["catalina.sh", "run"]
