@@ -19,7 +19,7 @@
     border-collapse: collapse;
 }
 .gradient-style th {
-    font-size: 13px;
+    font-size: 12px;
     font-weight: normal;
     padding: 4px;
     background: #b9c9fe url('images/gradhead.png') repeat-x;
