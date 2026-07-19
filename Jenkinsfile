@@ -12,7 +12,7 @@ pipeline {
                 echo 'Wiping old workspace data and pulling clean testing code...'
                 cleanWs()
                 // Downloads your dedicated automation script repo to execute against the server
-                git url: 'https://github.com/AishParamadathil/parabank-selenium-tests.git', branch: 'main'
+                git url: 'https://github.com/AishParamadathil/parabank-selenium-tests.git', branch: 'main', credentialsId: 'github-token-auth'
             }
         }
 
